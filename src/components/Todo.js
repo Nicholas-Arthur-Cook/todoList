@@ -15,7 +15,6 @@ const Todo = ({ todoItems, updateItem, removeItem }) => {
       value: '',
     });
   };
-
   return todoItems.map((todo, index) => (
     <div key={index} className="todo-container">
       <div className="text">{todo.text}</div>

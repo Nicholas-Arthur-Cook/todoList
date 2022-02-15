@@ -3,17 +3,7 @@ import '../css/TodoList.css';
 import Todo from './Todo';
 import { AiFillPlusCircle } from 'react-icons/ai';
 
-export default function TodoList() {
-  const [todoItems, setTodoItems] = useState([
-    {
-      text: 'text',
-      id: 1,
-    },
-    {
-      text: 'text2',
-      id: 2,
-    },
-  ]);
+export default function TodoList({ todoItems, updateList, listId }) {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -22,18 +12,19 @@ export default function TodoList() {
     setInput('');
   };
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
-
   const addItem = () => {
-    setTodoItems((todoItems) => [
+    let newArr = [
       ...todoItems,
       {
         text: input,
         id: todoItems.at(-1).id + 1,
       },
-    ]);
+    ];
+    updateList(newArr, listId);
+  };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
   };
 
   const updateItem = (todo) => {
@@ -41,8 +32,8 @@ export default function TodoList() {
   };
 
   const removeItem = (id) => {
-    const arr = [...todoItems].filter((todo) => todo.id !== id);
-    setTodoItems(arr);
+    const newArr = [...todoItems].filter((todo) => todo.id !== id);
+    updateList(newArr, listId);
   };
 
   return (
