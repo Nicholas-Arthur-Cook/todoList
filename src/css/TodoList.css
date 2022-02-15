@@ -3,3 +3,13 @@
   width: 25rem;
   text-align: center;
 }
+
+.form-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  flex: 4;
+  margin: 10px;
+}

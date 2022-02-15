@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/TodoList.css';
 import Todo from './Todo';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 export default function TodoList() {
   const [todoItems, setTodoItems] = useState([
@@ -51,14 +52,18 @@ export default function TodoList() {
         updateItem={updateItem}
         removeItem={removeItem}
       />
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="add todo item..."
-          value={input}
-          onChange={handleChange}
-        />
-      </form>
-      <button onClick={addItem}>Add todo</button>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="input-field">
+          <input
+            placeholder="add todo item..."
+            value={input}
+            onChange={handleChange}
+          />
+        </form>
+        <button onClick={addItem} style={{ flex: 1 }}>
+          <AiFillPlusCircle />
+        </button>
+      </div>
     </div>
   );
 }

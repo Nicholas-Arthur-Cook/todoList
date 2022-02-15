@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import '../css/Todo.css';
 
 const Todo = ({ todoItems, updateItem, removeItem }) => {
   const [edit, setEdit] = useState({
@@ -15,13 +17,17 @@ const Todo = ({ todoItems, updateItem, removeItem }) => {
   };
 
   return todoItems.map((todo, index) => (
-    <div key={index} className="todo-wrapper">
-      <div>{todo.text}</div>
-      <div>
-        <button onClick={updateHandler}>Edit</button>
+    <div key={index} className="todo-container">
+      <div className="text">{todo.text}</div>
+      <div className="item">
+        <button onClick={updateHandler}>
+          <AiFillEdit />
+        </button>
       </div>
-      <div>
-        <button onClick={() => removeItem(todo.id)}>Delete</button>
+      <div className="item">
+        <button onClick={() => removeItem(todo.id)}>
+          <AiFillDelete />
+        </button>
       </div>
     </div>
   ));
