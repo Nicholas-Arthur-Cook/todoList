@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import '../css/TodoList.css';
 import Todo from './Todo';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import TodoTitle from './TodoTitle';
 
-export default function TodoList({ todoItems, updateList, listId }) {
+export default function TodoList({
+  sendTitleToParent,
+  todoItems,
+  updateList,
+  listId,
+  addToId,
+  showAllLists,
+}) {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -17,7 +25,7 @@ export default function TodoList({ todoItems, updateList, listId }) {
       ...todoItems,
       {
         text: input,
-        id: todoItems.at(-1).id + 1,
+        id: todoItems.at(-1) ? todoItems.at(-1).id + 1 : 0,
       },
     ];
     updateList(newArr, listId);
@@ -27,8 +35,15 @@ export default function TodoList({ todoItems, updateList, listId }) {
     setInput(e.target.value);
   };
 
-  const updateItem = (todo) => {
-    // update item
+  const updateItem = (value, id) => {
+    const newArr = todoItems.map(function (todo) {
+      return todo.id === id
+        ? { text: value, id: id }
+        : { text: todo.text, id: todo.id };
+    });
+    updateList(newArr, listId);
+    console.log('Updated id:', id);
+    console.log(todoItems);
   };
 
   const removeItem = (id) => {
@@ -38,10 +53,14 @@ export default function TodoList({ todoItems, updateList, listId }) {
 
   return (
     <div className="TodoList">
+      <TodoTitle sendTitleToParent={sendTitleToParent} listId={listId} />
       <Todo
         todoItems={todoItems}
         updateItem={updateItem}
         removeItem={removeItem}
+        addToId={addToId}
+        showAllLists={showAllLists}
+        listId={listId}
       />
       <div className="form-container">
         <form onSubmit={handleSubmit} className="input-field">
